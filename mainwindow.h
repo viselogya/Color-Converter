@@ -16,7 +16,16 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
+    friend class TestMainWindow;
+
+    enum class ColorModel {
+        RGB, CMYK, HSV
+    };
+
+    void UpdateColor(ColorModel color_model, int first_color, int second_color,
+                     int third_color, int fourth_color = -1);
+
+public slots:
     void on_pushButton_clicked();
     void on_rgbSlider_valueChanged(int);
     void on_hsvSlider_valueChanged(int);
@@ -26,11 +35,6 @@ private slots:
     void on_cmykSpinBox_valueChanged(int);
 
 private:
-    enum class ColorModel {
-        RGB, CMYK, HSV
-    };
-    void UpdateColor(ColorModel color_model, int first_color, int second_color,
-                     int third_color, int fourth_color = -1);
 
     void change_CMYK_stats(int c, int m, int y, int k);
     void change_HSV_stats(int h, int s, int v);
